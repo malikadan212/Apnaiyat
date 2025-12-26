@@ -1,0 +1,26 @@
+Create a React component for a sleek, modern hero section (first section) of a landing page. The platform is Apnaiyat, a security-first crowdfunding site focused on transparent, fraud-proof donations for families in need. Use Tailwind CSS for styling (assume it's set up in the project or include the CDN if needed). Make it fully responsive.
+Reference this example structure from CrowdFundo's landing page, but adapt it to Apnaiyat:
+
+Top navigation bar with logo on left (hands shield icon + "APNAIYAT" text), menu items (Home, For Donors, For NGOs/Charities, How It Works, About Us), a chat icon, and a "Sign Up" button on right.
+Hero background: A full-width image or gradient with an empathetic helping scene (use a placeholder URL like 'https://via.placeholder.com/1920x1080?text=Empathetic+Helping+Scene' for now). Add subtle wave patterns or dots in the background for modernity (use CSS for waves if possible).
+Overlay headline: "With your secure support, we ensure every donation reaches families in need—transparently and without fraud." Highlight "secure" in a light green color.
+Floating campaign card on the bottom-right: Show raised amount (e.g., "PKR 232,032 Raised"), progress bar (48% filled in green), donor count (412 Donors), description ("Secure donations for families affected by emergencies."), and two buttons ("Start Donating" white on green, "Sign Up Now" black on white).
+Subtle elements: Tagline below headline: "Secure, verified donations reaching families in need" in smaller font.
+
+Use Framer Motion for animations:
+
+Fade-in and slight upward slide for the headline and tagline on initial mount (duration: 1s, ease: [0.25, 0.1, 0.25, 1]).
+Gentle scale-up (from 0.95 to 1) and opacity fade for the logo.
+Fade-in from right for the floating campaign card (duration: 1.2s).
+On hover, scale buttons up by 1.05 with a smooth transition (use motion.button).
+Animate the progress bar to fill from 0% to 48% on mount (duration: 1.5s).
+
+Brand colors and assets:
+
+Primary: Dark green (#005F4B) for text, buttons, accents.
+Secondary: Light green (#4B9C8A) for highlights, progress bars.
+Background: Light beige (#F5F2EB).
+Logo: Describe as a shield made of hands with "APNAIYAT" text (use text-based or a placeholder SVG/img for now).
+Typography: Modern sans-serif (e.g., import Inter or Roboto from Google Fonts).
+
+Import necessary libraries: React, Framer Motion (assume installed via npm in Replit: npm install framer-motion). Ensure accessibility (aria labels, etc.). Output the full code for a HeroSection component that can be exported and used in App.js, including any imports.
