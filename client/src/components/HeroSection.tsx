@@ -9,14 +9,15 @@ export function HeroSection() {
   return (
     <div className="relative w-full min-h-screen flex items-center overflow-hidden">
       {/* Full-screen Background Image */}
-      <div className="absolute inset-0 w-full h-full">
+      <div className="absolute inset-0 w-full h-full overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/80 to-secondary" />
         <img 
-          src="https://images.unsplash.com/photo-1559027615-cd3628902d4a?auto=format&fit=crop&q=80&w=1920" 
+          src="https://images.unsplash.com/photo-1587381156864-9b5694c82a35?w=1920&h=1080&fit=crop" 
           alt="People helping families in need"
-          className="w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover opacity-60"
         />
         {/* Dark Overlay Wash for text readability */}
-        <div className="absolute inset-0 bg-gradient-to-r from-black/70 via-black/50 to-black/30" />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/55 to-black/35" />
       </div>
 
       {/* Content Container */}
