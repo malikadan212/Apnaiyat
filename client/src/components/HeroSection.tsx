@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Heart, Users } from "lucide-react";
 import { Button } from "./Button";
 import { useHeroCampaign } from "@/hooks/use-campaigns";
-import heroBackground from "@assets/generated_images/diverse_volunteers_helping_families_with_compassion_and_dignity.png";
+import heroBackground from "@assets/generated_images/pakistani_volunteers_helping_families_with_compassion_and_dignity.png";
 
 export function HeroSection() {
   const { data: campaign, isLoading } = useHeroCampaign();
