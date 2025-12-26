@@ -1,64 +1,96 @@
 import { Link } from "wouter";
-import { ShieldCheck, MessageSquare } from "lucide-react";
+import { ShieldCheck, MessageSquare, Menu } from "lucide-react";
 import { Button } from "./Button";
 import { useAuth } from "@/hooks/use-auth";
+import { useState } from "react";
 
 export function Navigation() {
   const { user } = useAuth();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <nav className="sticky top-0 z-50 w-full border-b border-primary/10 bg-white/80 backdrop-blur-md">
-      <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
-          <div className="relative">
-            <ShieldCheck className="w-8 h-8 text-primary transition-transform duration-300 group-hover:scale-110" />
-            <div className="absolute inset-0 bg-primary/20 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
-          </div>
-          <span className="font-sans font-bold text-xl tracking-tight text-primary">
-            APNAIYAT
-          </span>
-        </Link>
-
-        {/* Desktop Links */}
-        <div className="hidden md:flex items-center gap-8">
-          {["Home", "For Donors", "For NGOs/Charities", "How It Works", "About Us"].map((item) => (
-            <Link 
-              key={item} 
-              href={item === "Home" ? "/" : `/${item.toLowerCase().replace(/\s+/g, '-')}`} 
-              className="text-sm font-medium text-muted-foreground hover:text-primary transition-colors relative group"
-            >
-              {item}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-secondary transition-all group-hover:w-full" />
-            </Link>
-          ))}
-        </div>
-
-        {/* Right Side Actions */}
-        <div className="flex items-center gap-4">
-          <button className="text-muted-foreground hover:text-primary transition-colors p-2 rounded-full hover:bg-muted">
-            <MessageSquare className="w-5 h-5" />
-          </button>
-          
-          {user ? (
-            <div className="flex items-center gap-2">
-              <span className="text-sm font-medium text-primary">Hi, {user.firstName || user.username}</span>
-              <img 
-                src={user.profileImageUrl || `https://ui-avatars.com/api/?name=${user.username}`} 
-                alt="Profile" 
-                className="w-8 h-8 rounded-full border border-border"
-              />
+    <nav className="fixed top-4 left-4 right-4 z-50 md:left-1/2 md:transform md:-translate-x-1/2 md:max-w-5xl md:w-11/12">
+      {/* Floating Navbar Container */}
+      <div className="bg-white/10 backdrop-blur-2xl border border-white/20 rounded-2xl shadow-2xl">
+        <div className="container mx-auto px-6 h-16 flex items-center justify-between">
+          {/* Logo */}
+          <Link href="/" className="flex items-center gap-2 group shrink-0">
+            <div className="relative">
+              <ShieldCheck className="w-7 h-7 text-white transition-transform duration-300 group-hover:scale-110 drop-shadow-lg" />
+              <div className="absolute inset-0 bg-secondary/30 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
-          ) : (
-            <Button 
-              variant="outline" 
-              size="sm"
-              onClick={() => window.location.href = "/api/login"}
+            <span className="font-sans font-extrabold text-lg tracking-tight text-white drop-shadow-md hidden sm:inline">
+              APNAIYAT
+            </span>
+          </Link>
+
+          {/* Desktop Links */}
+          <div className="hidden lg:flex items-center gap-1">
+            {["Home", "For Donors", "For NGOs/Charities", "How It Works", "About Us"].map((item) => (
+              <Link 
+                key={item} 
+                href={item === "Home" ? "/" : `/${item.toLowerCase().replace(/\s+/g, '-')}`} 
+                className="text-xs font-semibold text-white/80 hover:text-white transition-colors px-3 py-2 rounded-lg hover:bg-white/10 relative group"
+              >
+                {item}
+              </Link>
+            ))}
+          </div>
+
+          {/* Right Side Actions */}
+          <div className="flex items-center gap-3">
+            <button className="text-white/70 hover:text-white transition-colors p-2 rounded-lg hover:bg-white/10">
+              <MessageSquare className="w-5 h-5" />
+            </button>
+            
+            {user ? (
+              <div className="flex items-center gap-2 pl-2 border-l border-white/20">
+                <div className="hidden sm:flex flex-col items-end">
+                  <span className="text-xs font-bold text-white drop-shadow-md">Hi, {user.firstName || user.email?.split('@')[0]}</span>
+                </div>
+                <img 
+                  src={user.profileImageUrl || `https://ui-avatars.com/api/?name=${user.firstName || 'User'}&background=${Math.random().toString(16).slice(2, 8)}&color=fff`} 
+                  alt="Profile" 
+                  className="w-8 h-8 rounded-lg border border-white/30 shadow-lg"
+                />
+              </div>
+            ) : (
+              <Button 
+                size="sm"
+                onClick={() => window.location.href = "/api/login"}
+                className="bg-secondary hover:bg-secondary/90 text-white font-semibold rounded-lg text-xs shadow-lg"
+              >
+                Sign Up
+              </Button>
+            )}
+
+            {/* Mobile Menu Button */}
+            <button 
+              className="lg:hidden text-white/70 hover:text-white transition-colors p-2 rounded-lg hover:bg-white/10"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             >
-              Sign Up
-            </Button>
-          )}
+              <Menu className="w-5 h-5" />
+            </button>
+          </div>
         </div>
+
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="lg:hidden border-t border-white/20 backdrop-blur-2xl bg-white/5">
+            <div className="px-6 py-4 space-y-2">
+              {["Home", "For Donors", "For NGOs/Charities", "How It Works", "About Us"].map((item) => (
+                <Link 
+                  key={item} 
+                  href={item === "Home" ? "/" : `/${item.toLowerCase().replace(/\s+/g, '-')}`} 
+                  className="block text-sm font-semibold text-white/80 hover:text-white px-3 py-2 rounded-lg hover:bg-white/10 transition-colors"
+                  onClick={() => setMobileMenuOpen(false)}
+                >
+                  {item}
+                </Link>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </nav>
   );
