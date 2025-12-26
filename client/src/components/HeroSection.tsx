@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Heart, Users } from "lucide-react";
 import { Button } from "./Button";
 import { useHeroCampaign } from "@/hooks/use-campaigns";
+import heroBackground from "@assets/generated_images/diverse_volunteers_helping_families_with_compassion_and_dignity.png";
 
 export function HeroSection() {
   const { data: campaign, isLoading } = useHeroCampaign();
@@ -12,9 +13,9 @@ export function HeroSection() {
       <div className="absolute inset-0 w-full h-full overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/80 to-secondary" />
         <img 
-          src="https://images.unsplash.com/photo-1587381156864-9b5694c82a35?w=1920&h=1080&fit=crop" 
-          alt="People helping families in need"
-          className="absolute inset-0 w-full h-full object-cover opacity-60"
+          src={heroBackground}
+          alt="Diverse volunteers helping families with compassion and dignity"
+          className="absolute inset-0 w-full h-full object-cover opacity-70"
         />
         {/* Dark Overlay Wash for text readability */}
         <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/55 to-black/35" />
