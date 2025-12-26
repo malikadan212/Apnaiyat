@@ -1,5 +1,6 @@
 import { Navigation } from "@/components/Navigation";
 import { HeroSection } from "@/components/HeroSection";
+import { HowItWorksSection } from "@/components/HowItWorksSection";
 
 export default function Home() {
   return (
@@ -7,6 +8,7 @@ export default function Home() {
       <Navigation />
       <main className="flex-1">
         <HeroSection />
+        <HowItWorksSection />
         
         {/* Placeholder for future sections */}
         <section className="py-24 container mx-auto px-4 text-center">
