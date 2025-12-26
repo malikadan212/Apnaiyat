@@ -1,5 +1,6 @@
 import { Navigation } from "@/components/Navigation";
 import { HeroSection } from "@/components/HeroSection";
+import { ApnaiyatSection } from "@/components/ApnaiyatSection";
 import { HowItWorksSection } from "@/components/HowItWorksSection";
 
 export default function Home() {
@@ -8,6 +9,7 @@ export default function Home() {
       <Navigation />
       <main className="flex-1">
         <HeroSection />
+        <ApnaiyatSection />
         <HowItWorksSection />
         
         {/* Placeholder for future sections */}
