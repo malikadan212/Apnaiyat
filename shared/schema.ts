@@ -1,15 +1,15 @@
-import { pgTable, text, serial, integer, numeric } from "drizzle-orm/pg-core";
+import { sqliteTable, text, integer, real } from "drizzle-orm/sqlite-core";
 import { createInsertSchema } from "drizzle-zod";
 import { z } from "zod";
 
 export * from "./models/auth";
 
-export const campaigns = pgTable("campaigns", {
-  id: serial("id").primaryKey(),
+export const campaigns = sqliteTable("campaigns", {
+  id: integer("id").primaryKey({ autoIncrement: true }),
   title: text("title").notNull(),
   description: text("description").notNull(),
-  raisedAmount: numeric("raised_amount").notNull(),
-  targetAmount: numeric("target_amount").notNull(),
+  raisedAmount: text("raised_amount").notNull(),
+  targetAmount: text("target_amount").notNull(),
   donorCount: integer("donor_count").notNull(),
   percentFilled: integer("percent_filled").notNull(),
 });

@@ -1,5 +1,5 @@
 import { Link } from "wouter";
-import { ShieldCheck, MessageSquare, Menu } from "lucide-react";
+import { MessageSquare, Menu } from "lucide-react";
 import { Button } from "./Button";
 import { useAuth } from "@/hooks/use-auth";
 import { useState } from "react";
@@ -16,7 +16,11 @@ export function Navigation() {
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 group shrink-0">
             <div className="relative">
-              <ShieldCheck className="w-7 h-7 text-accent-foreground transition-transform duration-300 group-hover:scale-110 drop-shadow-lg" />
+              <img 
+                src="/favicon.png" 
+                alt="Apnaiyat Logo" 
+                className="h-10 w-auto object-contain transition-transform duration-300 group-hover:scale-110 drop-shadow-lg"
+              />
               <div className="absolute inset-0 bg-background/40 blur-lg rounded-full opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
             <span className="font-sans font-extrabold text-lg tracking-tight text-white drop-shadow-md hidden sm:inline">
@@ -58,7 +62,7 @@ export function Navigation() {
             ) : (
               <Button 
                 size="sm"
-                onClick={() => window.location.href = "/api/login"}
+                onClick={() => window.location.href = "/auth"}
                 className="bg-gradient-to-r from-secondary to-secondary/80 hover:from-secondary/90 hover:to-secondary/70 text-white font-semibold rounded-lg text-xs shadow-lg border border-background/30"
               >
                 Sign Up

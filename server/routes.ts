@@ -1,6 +1,6 @@
 import type { Express } from "express";
 import type { Server } from "http";
-import { setupAuth } from "./replit_integrations/auth";
+import { setupAuth, registerAuthRoutes } from "./auth";
 import { storage } from "./storage";
 import { api } from "@shared/routes";
 
@@ -8,7 +8,8 @@ export async function registerRoutes(
   httpServer: Server,
   app: Express
 ): Promise<Server> {
-  setupAuth(app);
+  await setupAuth(app);
+  registerAuthRoutes(app);
 
   app.get(api.campaigns.getHero.path, async (req, res) => {
     const campaign = await storage.getHeroCampaign();

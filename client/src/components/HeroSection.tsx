@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Heart, Users } from "lucide-react";
+import { Users, Clock, MapPin, Shield } from "lucide-react";
 import { Button } from "./Button";
 import { useHeroCampaign } from "@/hooks/use-campaigns";
 import heroBackground from "@assets/generated_images/pakistani_volunteers_helping_families_with_compassion_and_dignity.png";
@@ -38,10 +38,6 @@ export function HeroSection() {
                 </span> support, we ensure every donation reaches families in need—<span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-secondary/80">transparently</span> and without fraud.
               </h1>
 
-              <p className="text-lg md:text-xl text-white/90 mb-8 leading-relaxed max-w-lg font-light">
-                Secure, verified donations reaching families in need directly. Join us in building a community that cares.
-              </p>
-
               <div className="flex flex-col sm:flex-row gap-4">
                 <Button 
                   size="lg" 
@@ -52,7 +48,7 @@ export function HeroSection() {
                 <Button 
                   variant="outline" 
                   size="lg"
-                  onClick={() => window.location.href = "/api/login"}
+                  onClick={() => window.location.href = "/auth"}
                   className="bg-white/10 border-white/20 text-white hover:bg-white/20 font-semibold backdrop-blur-sm"
                 >
                   Sign Up Now
@@ -69,75 +65,106 @@ export function HeroSection() {
                 className="w-full max-w-md"
               >
                 {/* Campaign Card */}
-                <div className="bg-white rounded-3xl p-7 shadow-2xl border border-white/10 backdrop-blur-xl space-y-5">
+                <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
                   {isLoading ? (
-                    <div className="animate-pulse space-y-4">
+                    <div className="p-7 animate-pulse space-y-4">
+                      <div className="h-32 bg-gray-200 rounded-xl"></div>
                       <div className="h-5 bg-gray-200 rounded w-2/3"></div>
                       <div className="h-3 bg-gray-200 rounded w-full"></div>
                       <div className="h-12 bg-gray-200 rounded w-full"></div>
                     </div>
                   ) : campaign ? (
                     <>
-                      {/* Header */}
-                      <div className="flex justify-between items-start gap-3">
+                      {/* Campaign Image */}
+                      <div className="relative h-40 overflow-hidden">
+                        <img 
+                          src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600&q=80"
+                          alt="Flood relief efforts"
+                          className="w-full h-full object-cover"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                        <div className="absolute bottom-3 left-4 right-4 flex justify-between items-end">
+                          <div className="flex items-center gap-2">
+                            <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1">
+                              <Clock className="w-3 h-3" /> 12 days left
+                            </span>
+                          </div>
+                          <div className="flex items-center gap-1 text-white/90 text-xs">
+                            <MapPin className="w-3 h-3" /> Sindh, Pakistan
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* Card Content */}
+                      <div className="p-5 space-y-4">
+                        {/* Title & Verified Badge */}
                         <div>
-                          <h3 className="text-sm font-semibold text-muted-foreground">FEATURED CAUSE</h3>
-                          <p className="text-sm text-muted-foreground line-clamp-2 mt-1">{campaign.description}</p>
-                        </div>
-                        <div className="bg-accent/80 px-3 py-1 rounded-full flex items-center gap-1">
-                          <span className="text-xs font-bold text-accent-foreground">Urgent</span>
-                        </div>
-                      </div>
-
-                      {/* Amount Raised */}
-                      <div className="pt-2 border-t border-border/50">
-                        <div className="flex justify-between items-baseline mb-3">
-                          <span className="text-2xl font-bold text-primary">
-                            PKR {Number(campaign.raisedAmount).toLocaleString()}
-                          </span>
-                          <span className="text-sm font-medium text-muted-foreground">
-                            Raised
-                          </span>
+                          <div className="flex items-center gap-2 mb-1">
+                            <h3 className="text-lg font-bold text-primary leading-tight">
+                              Flood Relief for 50 Families in Sindh
+                            </h3>
+                            <Shield className="w-4 h-4 text-secondary flex-shrink-0" />
+                          </div>
+                          <p className="text-xs text-muted-foreground">
+                            by <span className="font-semibold text-primary">Al-Khidmat Foundation</span> • Verified NGO
+                          </p>
                         </div>
 
-                        {/* Progress Bar */}
-                        <div className="h-3 bg-gray-100 rounded-full overflow-hidden mb-3">
-                          <motion.div 
-                            initial={{ width: 0 }}
-                            animate={{ width: `${campaign.percentFilled}%` }}
-                            transition={{ duration: 1.5, ease: "easeOut" }}
-                            className="h-full bg-gradient-to-r from-secondary to-secondary/70 rounded-full"
-                          />
+                        {/* Progress Section */}
+                        <div>
+                          <div className="flex justify-between items-baseline mb-2">
+                            <div>
+                              <span className="text-2xl font-bold text-primary">
+                                PKR {Number(campaign.raisedAmount).toLocaleString()}
+                              </span>
+                              <span className="text-sm text-muted-foreground ml-1">
+                                raised
+                              </span>
+                            </div>
+                            <span className="text-sm font-medium text-muted-foreground">
+                              of PKR {Number(campaign.targetAmount).toLocaleString()}
+                            </span>
+                          </div>
+
+                          {/* Progress Bar */}
+                          <div className="h-2.5 bg-gray-100 rounded-full overflow-hidden mb-2">
+                            <motion.div 
+                              initial={{ width: 0 }}
+                              animate={{ width: `${campaign.percentFilled}%` }}
+                              transition={{ duration: 1.5, ease: "easeOut" }}
+                              className="h-full bg-gradient-to-r from-secondary to-primary rounded-full"
+                            />
+                          </div>
+
+                          {/* Stats Row */}
+                          <div className="flex justify-between text-xs text-muted-foreground">
+                            <span className="font-semibold text-secondary">{campaign.percentFilled}% funded</span>
+                            <span className="flex items-center gap-1">
+                              <Users className="w-3 h-3" /> {campaign.donorCount} supporters
+                            </span>
+                          </div>
                         </div>
 
-                        {/* Stats */}
-                        <div className="flex justify-between text-xs font-medium text-muted-foreground">
-                          <span>{campaign.percentFilled}% Funded</span>
-                          <span className="flex items-center gap-1">
-                            <Users className="w-3 h-3" /> {campaign.donorCount} Donors
-                          </span>
+                        {/* Action Buttons */}
+                        <div className="grid grid-cols-2 gap-3 pt-1">
+                          <Button 
+                            className="w-full text-sm font-bold bg-secondary hover:bg-secondary/90 text-white" 
+                            size="md"
+                          >
+                            Donate Now
+                          </Button>
+                          <Button 
+                            variant="outline" 
+                            className="w-full text-sm font-semibold text-primary border-primary/30 hover:bg-primary/5" 
+                            size="md"
+                          >
+                            View Details
+                          </Button>
                         </div>
-                      </div>
-
-                      {/* Action Buttons */}
-                      <div className="grid grid-cols-2 gap-3 pt-2">
-                        <Button 
-                          className="w-full text-sm font-bold bg-white text-primary hover:bg-gray-50 border-0" 
-                          size="md"
-                        >
-                          Start Donating
-                        </Button>
-                        <Button 
-                          variant="outline" 
-                          className="w-full text-sm font-bold text-primary border-primary/20 hover:bg-primary/5" 
-                          size="md"
-                        >
-                          Learn More
-                        </Button>
                       </div>
                     </>
                   ) : (
-                    <div className="text-center py-6 text-muted-foreground">
+                    <div className="p-7 text-center py-12 text-muted-foreground">
                       <p className="font-medium">No active campaigns featured right now.</p>
                     </div>
                   )}

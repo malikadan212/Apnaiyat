@@ -1,78 +1,85 @@
 import { motion } from "framer-motion";
-import { ShieldCheck, CheckCircle2, Lock, Eye, Handshake } from "lucide-react";
-import { Button } from "./Button";
+import {
+  ShieldCheck,
+  Lock,
+  Eye,
+  Handshake,
+  UserCheck,
+  Scale,
+  Activity,
+} from "lucide-react";
+import { useState } from "react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export function HowItWorksSection() {
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const isMobile = useIsMobile();
+
   const steps = [
     {
       icon: ShieldCheck,
       title: "Verify & Validate",
-      description: "Every campaign is rigorously checked with KYC, documents, and liveness tests before launch.",
+      description:
+        "Every campaign is rigorously checked with KYC, documents, and liveness tests before launch.",
+      gradient: "from-[#005F4B] to-[#4B9C8A]",
     },
     {
       icon: Lock,
-      title: "Secure Donations",
-      description: "Funds are held in escrow and released only against proven milestones.",
+      title: "Secure Escrow",
+      description:
+        "Funds are held safely in escrow and released only against approved milestones with proof.",
+      gradient: "from-[#4B9C8A] to-[#005F4B]",
     },
     {
       icon: Eye,
       title: "Total Transparency",
-      description: "Track every rupee in real-time with updates and audit trails.",
+      description:
+        "Donors see where every rupee goes through real-time updates and impact tracking.",
+      gradient: "from-[#005F4B] to-[#3D8B7A]",
+    },
+    {
+      icon: UserCheck,
+      title: "Fraud Prevention",
+      description:
+        "Strong identity checks, beneficiary validation, and continuous monitoring reduce fake campaigns.",
+      gradient: "from-[#3D8B7A] to-[#005F4B]",
     },
     {
       icon: Handshake,
-      title: "Build Trust",
-      description: "Fraud prevention and regulator-ready compliance for donors, NGOs, and more.",
+      title: "Trust for All",
+      description:
+        "Donors, NGOs, CSR teams, and banks operate on one secure, auditable system.",
+      gradient: "from-[#005F4B] to-[#4B9C8A]",
+    },
+    {
+      icon: Scale,
+      title: "Regulator Ready",
+      description:
+        "Built with AML, audit trails, and compliance workflows that meet SECP and banking standards.",
+      gradient: "from-[#4B9C8A] to-[#005F4B]",
+    },
+    {
+      icon: Activity,
+      title: "Real-Time Impact",
+      description:
+        "Track campaign progress and see the direct impact of your donations as they happen.",
+      gradient: "from-[#005F4B] to-[#3D8B7A]",
     },
   ];
 
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-        delayChildren: 0.2,
-      },
-    },
-  };
+  const totalCards = steps.length;
+  const cardWidth = isMobile ? 200 : 290;
+  const overlap = isMobile ? 160 : 120;
 
-  const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] },
-    },
+  // Calculate spread positions for desktop
+  const getSpreadX = (index: number) => {
+    const totalWidth = (totalCards - 1) * (cardWidth - overlap);
+    const startX = -totalWidth / 2;
+    return startX + index * (cardWidth - overlap);
   };
 
   return (
-    <section className="relative w-full py-20 md:py-32 bg-background overflow-hidden">
-      {/* Animated Wave Background */}
-      <motion.div
-        className="absolute inset-0 opacity-30"
-        animate={{ x: [0, 100] }}
-        transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-      >
-        <svg
-          className="w-full h-full"
-          viewBox="0 0 1200 120"
-          preserveAspectRatio="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <defs>
-            <linearGradient id="waveGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-              <stop offset="0%" stopColor="#4B9C8A" stopOpacity="0.1" />
-              <stop offset="100%" stopColor="#005F4B" stopOpacity="0.05" />
-            </linearGradient>
-          </defs>
-          <path
-            d="M0,50 Q300,10 600,50 T1200,50 L1200,120 L0,120 Z"
-            fill="url(#waveGradient)"
-          />
-        </svg>
-      </motion.div>
-
+    <section className="relative w-full py-16 md:py-32 bg-gradient-to-b from-gray-100 to-gray-200 overflow-hidden">
       {/* Content Container */}
       <div className="relative z-10 container mx-auto px-4">
         {/* Section Heading */}
@@ -81,81 +88,169 @@ export function HowItWorksSection() {
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true, amount: 0.5 }}
-          className="max-w-3xl mx-auto text-center mb-12 md:mb-20"
+          className="max-w-3xl mx-auto text-center mb-12 md:mb-16"
         >
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <ShieldCheck className="w-10 h-10 text-primary" />
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-primary">
+          <div className="flex items-center justify-center gap-2 md:gap-3 mb-4 md:mb-6">
+            <ShieldCheck className="w-8 h-8 md:w-10 md:h-10 text-primary" />
+            <h2 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-primary">
               How It Works
             </h2>
           </div>
 
-          <p className="text-lg md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto">
-            Apnaiyat ensures your donations are secure, verified, and impactful. Here's our simple, trust-building process.
+          <p className="text-base md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto px-4">
+            Apnaiyat ensures your donations are secure, verified, and impactful.
+            Here's our simple, trust-building process.
           </p>
         </motion.div>
 
-        {/* Steps Grid */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.2 }}
-          className="grid md:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 mb-16 md:mb-24"
-        >
-          {steps.map((step, index) => {
-            const Icon = step.icon;
-            return (
-              <motion.div
-                key={index}
-                variants={itemVariants}
-                whileHover={{ scale: 1.05, rotate: 2 }}
-                transition={{ type: "spring", stiffness: 300, damping: 10 }}
-                className="relative"
-              >
-                {/* Step Card */}
-                <div className="h-full bg-white rounded-2xl p-6 md:p-8 shadow-lg border border-border/50 hover:shadow-xl transition-shadow">
-                  {/* Step Number */}
-                  <div className="absolute -top-4 -right-4 w-10 h-10 bg-secondary text-white rounded-full flex items-center justify-center font-bold text-sm shadow-lg">
-                    {index + 1}
-                  </div>
+        {/* Desktop Card Deck */}
+        <div className="hidden md:flex justify-center items-center">
+          <div className="relative h-[480px] w-full flex justify-center items-center">
+            {steps.map((step, index) => {
+              const Icon = step.icon;
+              const isHovered = hoveredIndex === index;
 
-                  {/* Icon */}
-                  <div className="mb-6">
-                    <div className="w-12 h-12 bg-secondary/10 rounded-xl flex items-center justify-center">
-                      <Icon className="w-6 h-6 text-secondary" />
+              return (
+                <motion.div
+                  key={index}
+                  initial={{
+                    x: 0,
+                    y: index * 4,
+                    scale: 1,
+                    rotateZ: index * 0.5,
+                  }}
+                  whileInView={{
+                    x: getSpreadX(index),
+                    y: 0,
+                    scale: 1,
+                    rotateZ: 0,
+                  }}
+                  transition={{
+                    duration: 0.8,
+                    delay: index * 0.1,
+                    ease: [0.25, 0.1, 0.25, 1],
+                  }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  animate={
+                    isHovered
+                      ? {
+                          y: -40,
+                          zIndex: 50,
+                        }
+                      : {
+                          y: 0,
+                          zIndex: index + 1,
+                        }
+                  }
+                  onHoverStart={() => setHoveredIndex(index)}
+                  onHoverEnd={() => setHoveredIndex(null)}
+                  className="absolute cursor-pointer"
+                  style={{
+                    zIndex: isHovered ? 50 : index + 1,
+                  }}
+                >
+                  {/* Card */}
+                  <motion.div
+                    animate={
+                      isHovered
+                        ? { width: 300, height: 440 }
+                        : { width: 260, height: 400 }
+                    }
+                    transition={{ duration: 0.3, ease: "easeOut" }}
+                    className={`relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-gradient-to-br ${step.gradient} ${
+                      isHovered ? "shadow-3xl" : ""
+                    }`}
+                  >
+                    {/* Content */}
+                    <div className="relative z-10 h-full flex flex-col p-7">
+                      {/* Step Number */}
+                      <div className="w-11 h-11 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mb-4">
+                        <span className="text-white font-bold text-xl">
+                          {index + 1}
+                        </span>
+                      </div>
+
+                      {/* Icon */}
+                      <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-6">
+                        <Icon className="w-7 h-7 text-white" />
+                      </div>
+
+                      {/* Title */}
+                      <h3 className="text-2xl font-bold text-white mb-3">
+                        {step.title}
+                      </h3>
+
+                      {/* Description */}
+                      <p className="text-white/85 text-sm leading-relaxed flex-grow">
+                        {step.description}
+                      </p>
+                    </div>
+                  </motion.div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </div>
+
+        {/* Mobile Horizontal Scroll */}
+        <div className="md:hidden">
+          <div className="flex gap-4 overflow-x-auto pb-6 px-2 snap-x snap-mandatory scrollbar-hide">
+            {steps.map((step, index) => {
+              const Icon = step.icon;
+
+              return (
+                <motion.div
+                  key={index}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  className="snap-center flex-shrink-0"
+                >
+                  {/* Card */}
+                  <div
+                    className={`relative w-[260px] h-[380px] rounded-2xl overflow-hidden shadow-xl border-2 border-white bg-gradient-to-br ${step.gradient}`}
+                  >
+                    {/* Content */}
+                    <div className="relative z-10 h-full flex flex-col p-6">
+                      {/* Step Number */}
+                      <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mb-4">
+                        <span className="text-white font-bold text-lg">
+                          {index + 1}
+                        </span>
+                      </div>
+
+                      {/* Icon */}
+                      <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-6">
+                        <Icon className="w-7 h-7 text-white" />
+                      </div>
+
+                      {/* Title */}
+                      <h3 className="text-xl font-bold text-white mb-3">
+                        {step.title}
+                      </h3>
+
+                      {/* Description */}
+                      <p className="text-white/85 text-sm leading-relaxed flex-grow">
+                        {step.description}
+                      </p>
                     </div>
                   </div>
+                </motion.div>
+              );
+            })}
+          </div>
 
-                  {/* Title */}
-                  <h3 className="text-xl font-bold text-primary mb-3">{step.title}</h3>
-
-                  {/* Description */}
-                  <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
-                    {step.description}
-                  </p>
-                </div>
-              </motion.div>
-            );
-          })}
-        </motion.div>
-
-        {/* CTA Button */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          viewport={{ once: true, amount: 0.5 }}
-          className="flex justify-center"
-        >
-          <Button
-            size="lg"
-            onClick={() => window.location.href = "/api/login"}
-            className="bg-primary hover:bg-primary/90 text-white font-semibold rounded-xl shadow-lg px-8 md:px-10"
-          >
-            Get Started
-          </Button>
-        </motion.div>
+          {/* Scroll Indicator */}
+          <div className="flex justify-center gap-1.5 mt-4">
+            {steps.map((_, index) => (
+              <div
+                key={index}
+                className="w-2 h-2 rounded-full bg-primary/30"
+              />
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );

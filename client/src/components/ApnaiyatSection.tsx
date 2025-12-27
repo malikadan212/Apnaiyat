@@ -1,140 +1,165 @@
 import { motion } from "framer-motion";
-import { Heart, Users, TrendingUp } from "lucide-react";
+
+// Placeholder images - replace with actual images later
+const leftImages = [
+  "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=300&h=300&fit=crop&q=80",
+  "https://images.unsplash.com/photo-1542810634-71277d95dcbb?w=300&h=300&fit=crop&q=80",
+];
+
+const rightImages = [
+  "https://images.unsplash.com/photo-1509099836639-18ba1795216d?w=300&h=300&fit=crop&q=80",
+  "https://images.unsplash.com/photo-1497486751825-1233686d5d80?w=300&h=300&fit=crop&q=80",
+];
 
 export function ApnaiyatSection() {
-  const stats = [
-    { icon: Heart, label: "Active Campaigns", value: "500+" },
-    { icon: Users, label: "Community Members", value: "50K+" },
-    { icon: TrendingUp, label: "Funds Distributed", value: "PKR 100Cr+" },
-  ];
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
+  const leftImageVariants = {
+    hidden: { opacity: 0, x: -150, rotate: -10 },
+    visible: (i: number) => ({
       opacity: 1,
+      x: 0,
+      rotate: 0,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.1,
+        duration: 0.8,
+        delay: i * 0.2,
+        ease: [0.25, 0.1, 0.25, 1],
       },
-    },
+    }),
   };
 
-  const itemVariants = {
-    hidden: { opacity: 0, scale: 0.9 },
+  const rightImageVariants = {
+    hidden: { opacity: 0, x: 150, rotate: 10 },
+    visible: (i: number) => ({
+      opacity: 1,
+      x: 0,
+      rotate: 0,
+      transition: {
+        duration: 0.8,
+        delay: i * 0.2,
+        ease: [0.25, 0.1, 0.25, 1],
+      },
+    }),
+  };
+
+  const textVariants = {
+    hidden: { opacity: 0, y: 30 },
     visible: {
       opacity: 1,
-      scale: 1,
-      transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] },
+      y: 0,
+      transition: { duration: 0.8, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] },
     },
   };
 
   return (
-    <section className="relative w-full py-20 md:py-32 bg-background overflow-hidden">
-      {/* Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 via-background to-primary/5" />
-
+    <section className="relative w-full py-24 md:py-32 bg-background overflow-hidden">
       {/* Content Container */}
       <div className="relative z-10 container mx-auto px-4">
-        {/* Main Heading */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          viewport={{ once: true, amount: 0.5 }}
-          className="text-center mb-16 md:mb-20"
-        >
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-primary mb-6 leading-tight">
-            Experience <span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-primary">Apnaiyat</span>
-          </h2>
-          <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto leading-relaxed">
-            A feeling of belonging, warmth, and kinship. Where every donation feels like helping family, and every giver becomes part of our community.
-          </p>
-        </motion.div>
-
-        {/* Stats Section */}
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, amount: 0.3 }}
-          className="grid md:grid-cols-3 gap-8 md:gap-12 mb-20"
-        >
-          {stats.map((stat, index) => {
-            const Icon = stat.icon;
-            return (
+        <div className="flex items-center justify-center gap-4 md:gap-8 lg:gap-16">
+          {/* Left Images Column */}
+          <div className="hidden md:flex flex-col gap-4 lg:gap-6">
+            {leftImages.map((src, index) => (
               <motion.div
-                key={index}
-                variants={itemVariants}
-                className="flex flex-col items-center text-center group"
+                key={`left-${index}`}
+                custom={index}
+                variants={leftImageVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.5 }}
+                className={`relative ${index === 0 ? "ml-8" : "mr-8"}`}
               >
-                {/* Icon Container */}
-                <div className="mb-6 relative">
-                  <div className="absolute inset-0 bg-secondary/20 rounded-full blur-xl group-hover:blur-2xl transition-all duration-300" />
-                  <div className="relative w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-secondary to-secondary/70 rounded-2xl flex items-center justify-center shadow-lg">
-                    <Icon className="w-8 h-8 md:w-10 md:h-10 text-white" />
-                  </div>
+                <div className="w-32 h-32 lg:w-40 lg:h-40 rounded-2xl overflow-hidden shadow-xl border-4 border-white">
+                  <img
+                    src={src}
+                    alt="Community member"
+                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                  />
                 </div>
-
-                {/* Stat Value */}
-                <h3 className="text-4xl md:text-5xl font-extrabold text-primary mb-3">
-                  {stat.value}
-                </h3>
-
-                {/* Stat Label */}
-                <p className="text-muted-foreground font-semibold text-sm md:text-base">
-                  {stat.label}
-                </p>
               </motion.div>
-            );
-          })}
-        </motion.div>
+            ))}
+          </div>
 
-        {/* Testimonial Cards Grid */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          viewport={{ once: true, amount: 0.3 }}
-          className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-16"
-        >
-          {[1, 2, 3, 4].map((_, index) => (
-            <motion.div
-              key={index}
-              whileHover={{ y: -8 }}
-              transition={{ type: "spring", stiffness: 300, damping: 10 }}
-              className="aspect-square rounded-2xl bg-gradient-to-br from-secondary/30 via-secondary/10 to-primary/10 border border-secondary/20 overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
-            >
-              <div className="w-full h-full bg-gradient-to-br from-primary/20 to-secondary/20 flex items-center justify-center">
-                <div className="text-center">
-                  <Users className="w-8 h-8 text-secondary mx-auto mb-2 opacity-60" />
-                  <p className="text-xs font-semibold text-muted-foreground opacity-70">Donor {index + 1}</p>
-                </div>
-              </div>
-            </motion.div>
-          ))}
-        </motion.div>
-
-        {/* Description and CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          viewport={{ once: true, amount: 0.5 }}
-          className="text-center max-w-3xl mx-auto"
-        >
-          <p className="text-muted-foreground text-lg leading-relaxed mb-8">
-            Join thousands of compassionate donors who've embraced <span className="font-semibold text-primary">Apnaiyat</span> — a movement where trust meets action, and every rupee carries the warmth of human connection. Together, we're not just raising funds; we're building a family united in the mission to help.
-          </p>
-          
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.98 }}
-            onClick={() => window.location.href = "/api/login"}
-            className="px-8 md:px-10 py-3 md:py-4 bg-gradient-to-r from-primary to-primary/80 hover:from-primary/90 hover:to-primary/70 text-white font-bold rounded-xl shadow-lg transition-all duration-300"
+          {/* Center Text Content */}
+          <motion.div
+            variants={textVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, amount: 0.5 }}
+            className="text-center max-w-lg px-4"
           >
-            Join the Apnaiyat Community
-          </motion.button>
-        </motion.div>
+            <p className="text-lg md:text-xl text-muted-foreground mb-6 font-medium">
+              Be Part Of A Movement Where
+            </p>
+
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-primary mb-6 leading-tight">
+              Every Rupee
+              <br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-primary">
+                Reaches Those
+              </span>
+              <br />
+              In Need
+            </h2>
+
+            <p className="text-muted-foreground text-base md:text-lg leading-relaxed mb-8 max-w-md mx-auto">
+              Apnaiyat means belonging. We're building a community where donors
+              and recipients connect with trust, transparency, and the warmth of
+              family.
+            </p>
+
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.98 }}
+              onClick={() => (window.location.href = "/auth")}
+              className="px-8 md:px-10 py-3 md:py-4 bg-secondary hover:bg-secondary/90 text-white font-bold rounded-full shadow-lg transition-all duration-300"
+            >
+              Join Apnaiyat Now!
+            </motion.button>
+          </motion.div>
+
+          {/* Right Images Column */}
+          <div className="hidden md:flex flex-col gap-4 lg:gap-6">
+            {rightImages.map((src, index) => (
+              <motion.div
+                key={`right-${index}`}
+                custom={index}
+                variants={rightImageVariants}
+                initial="hidden"
+                whileInView="visible"
+                viewport={{ once: true, amount: 0.5 }}
+                className={`relative ${index === 0 ? "mr-8" : "ml-8"}`}
+              >
+                <div className="w-32 h-32 lg:w-40 lg:h-40 rounded-2xl overflow-hidden shadow-xl border-4 border-white">
+                  <img
+                    src={src}
+                    alt="Community member"
+                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500"
+                  />
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+
+        {/* Mobile Images - Show below text on small screens */}
+        <div className="md:hidden mt-12">
+          <div className="flex justify-center gap-4 flex-wrap">
+            {[...leftImages, ...rightImages].map((src, index) => (
+              <motion.div
+                key={`mobile-${index}`}
+                initial={{ opacity: 0, scale: 0.8 }}
+                whileInView={{ opacity: 1, scale: 1 }}
+                viewport={{ once: true, amount: 0.5 }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                className="w-24 h-24 rounded-xl overflow-hidden shadow-lg border-2 border-white"
+              >
+                <img
+                  src={src}
+                  alt="Community member"
+                  className="w-full h-full object-cover grayscale"
+                />
+              </motion.div>
+            ))}
+          </div>
+        </div>
       </div>
     </section>
   );
