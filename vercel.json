@@ -1,0 +1,6 @@
+{
+  "buildCommand": "npm run build:client",
+  "outputDirectory": "dist/public",
+  "installCommand": "npm install --omit=optional --ignore-scripts",
+  "framework": "vite"
+}
