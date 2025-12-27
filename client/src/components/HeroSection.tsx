@@ -7,6 +7,21 @@ import heroBackground from "@assets/generated_images/pakistani_volunteers_helpin
 export function HeroSection() {
   const { data: campaign, isLoading } = useHeroCampaign();
 
+  // Static fallback campaign for frontend-only deployment
+  const staticCampaign = {
+    id: 1,
+    title: "Flood Relief for 50 Families in Sindh",
+    raisedAmount: 875000,
+    targetAmount: 1250000,
+    percentFilled: 70,
+    donorCount: 234,
+    daysLeft: 12,
+    location: "Sindh, Pakistan",
+    organizer: "Al-Khidmat Foundation",
+  };
+
+  const displayCampaign = campaign || staticCampaign;
+
   return (
     <div className="relative w-full min-h-screen flex items-center overflow-hidden">
       {/* Full-screen Background Image */}
@@ -73,7 +88,7 @@ export function HeroSection() {
                       <div className="h-3 bg-gray-200 rounded w-full"></div>
                       <div className="h-12 bg-gray-200 rounded w-full"></div>
                     </div>
-                  ) : campaign ? (
+                  ) : (
                     <>
                       {/* Campaign Image */}
                       <div className="relative h-40 overflow-hidden">
@@ -86,11 +101,11 @@ export function HeroSection() {
                         <div className="absolute bottom-3 left-4 right-4 flex justify-between items-end">
                           <div className="flex items-center gap-2">
                             <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1">
-                              <Clock className="w-3 h-3" /> 12 days left
+                              <Clock className="w-3 h-3" /> {displayCampaign.daysLeft} days left
                             </span>
                           </div>
                           <div className="flex items-center gap-1 text-white/90 text-xs">
-                            <MapPin className="w-3 h-3" /> Sindh, Pakistan
+                            <MapPin className="w-3 h-3" /> {displayCampaign.location}
                           </div>
                         </div>
                       </div>
@@ -101,12 +116,12 @@ export function HeroSection() {
                         <div>
                           <div className="flex items-center gap-2 mb-1">
                             <h3 className="text-lg font-bold text-primary leading-tight">
-                              Flood Relief for 50 Families in Sindh
+                              {displayCampaign.title}
                             </h3>
                             <Shield className="w-4 h-4 text-secondary flex-shrink-0" />
                           </div>
                           <p className="text-xs text-muted-foreground">
-                            by <span className="font-semibold text-primary">Al-Khidmat Foundation</span> • Verified NGO
+                            by <span className="font-semibold text-primary">{displayCampaign.organizer}</span> • Verified NGO
                           </p>
                         </div>
 
@@ -115,14 +130,14 @@ export function HeroSection() {
                           <div className="flex justify-between items-baseline mb-2">
                             <div>
                               <span className="text-2xl font-bold text-primary">
-                                PKR {Number(campaign.raisedAmount).toLocaleString()}
+                                PKR {Number(displayCampaign.raisedAmount).toLocaleString()}
                               </span>
                               <span className="text-sm text-muted-foreground ml-1">
                                 raised
                               </span>
                             </div>
                             <span className="text-sm font-medium text-muted-foreground">
-                              of PKR {Number(campaign.targetAmount).toLocaleString()}
+                              of PKR {Number(displayCampaign.targetAmount).toLocaleString()}
                             </span>
                           </div>
 
@@ -130,7 +145,7 @@ export function HeroSection() {
                           <div className="h-2.5 bg-gray-100 rounded-full overflow-hidden mb-2">
                             <motion.div 
                               initial={{ width: 0 }}
-                              animate={{ width: `${campaign.percentFilled}%` }}
+                              animate={{ width: `${displayCampaign.percentFilled}%` }}
                               transition={{ duration: 1.5, ease: "easeOut" }}
                               className="h-full bg-gradient-to-r from-secondary to-primary rounded-full"
                             />
@@ -138,9 +153,9 @@ export function HeroSection() {
 
                           {/* Stats Row */}
                           <div className="flex justify-between text-xs text-muted-foreground">
-                            <span className="font-semibold text-secondary">{campaign.percentFilled}% funded</span>
+                            <span className="font-semibold text-secondary">{displayCampaign.percentFilled}% funded</span>
                             <span className="flex items-center gap-1">
-                              <Users className="w-3 h-3" /> {campaign.donorCount} supporters
+                              <Users className="w-3 h-3" /> {displayCampaign.donorCount} supporters
                             </span>
                           </div>
                         </div>
@@ -163,10 +178,6 @@ export function HeroSection() {
                         </div>
                       </div>
                     </>
-                  ) : (
-                    <div className="p-7 text-center py-12 text-muted-foreground">
-                      <p className="font-medium">No active campaigns featured right now.</p>
-                    </div>
                   )}
                 </div>
               </motion.div>
