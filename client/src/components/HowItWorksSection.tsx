@@ -7,251 +7,202 @@ import {
   UserCheck,
   Scale,
   Activity,
+  ArrowRight,
+  CheckCircle,
 } from "lucide-react";
-import { useState } from "react";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 export function HowItWorksSection() {
-  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
-  const isMobile = useIsMobile();
-
   const steps = [
     {
       icon: ShieldCheck,
       title: "Verify & Validate",
       description:
-        "Every campaign is rigorously checked with KYC, documents, and liveness tests before launch.",
+        "Every campaign undergoes rigorous KYC verification, document validation, and liveness tests before going live. Our 3-step process ensures only legitimate causes reach donors.",
+      features: ["National ID & Biometric Verification", "Document Authentication", "Anti-Fraud Background Checks"],
       gradient: "from-[#005F4B] to-[#4B9C8A]",
     },
     {
       icon: Lock,
-      title: "Secure Escrow",
+      title: "Secure Escrow Protection",
       description:
-        "Funds are held safely in escrow and released only against approved milestones with proof.",
+        "Your donations are held in a smart escrow vault and released only when verified milestones are achieved. Complete protection against misuse of funds.",
+      features: ["Milestone-Based Fund Release", "Multi-Signature Approval", "Automatic Refund Protection"],
       gradient: "from-[#4B9C8A] to-[#005F4B]",
     },
     {
       icon: Eye,
-      title: "Total Transparency",
+      title: "Complete Transparency",
       description:
-        "Donors see where every rupee goes through real-time updates and impact tracking.",
-      gradient: "from-[#005F4B] to-[#3D8B7A]",
-    },
-    {
-      icon: UserCheck,
-      title: "Fraud Prevention",
-      description:
-        "Strong identity checks, beneficiary validation, and continuous monitoring reduce fake campaigns.",
-      gradient: "from-[#3D8B7A] to-[#005F4B]",
-    },
-    {
-      icon: Handshake,
-      title: "Trust for All",
-      description:
-        "Donors, NGOs, CSR teams, and banks operate on one secure, auditable system.",
-      gradient: "from-[#005F4B] to-[#4B9C8A]",
-    },
-    {
-      icon: Scale,
-      title: "Regulator Ready",
-      description:
-        "Built with AML, audit trails, and compliance workflows that meet SECP and banking standards.",
-      gradient: "from-[#4B9C8A] to-[#005F4B]",
-    },
-    {
-      icon: Activity,
-      title: "Real-Time Impact",
-      description:
-        "Track campaign progress and see the direct impact of your donations as they happen.",
+        "Track exactly where every rupee goes with real-time financial ledgers, digital receipts, and downloadable audit reports. Full visibility into impact.",
+      features: ["Live Donation Tracking", "Digital Receipt System", "Downloadable Financial Reports"],
       gradient: "from-[#005F4B] to-[#3D8B7A]",
     },
   ];
 
-  const totalCards = steps.length;
-  const cardWidth = isMobile ? 200 : 290;
-  const overlap = isMobile ? 160 : 120;
-
-  // Calculate spread positions for desktop
-  const getSpreadX = (index: number) => {
-    const totalWidth = (totalCards - 1) * (cardWidth - overlap);
-    const startX = -totalWidth / 2;
-    return startX + index * (cardWidth - overlap);
-  };
-
   return (
-    <section className="relative w-full py-16 md:py-32 bg-gradient-to-b from-gray-100 to-gray-200 overflow-hidden">
-      {/* Content Container */}
-      <div className="relative z-10 container mx-auto px-4">
-        {/* Section Heading */}
+    <section className="relative w-full py-16 md:py-24 bg-gradient-to-b from-[#F6F5F0] to-white overflow-hidden">
+      {/* Section Header */}
+      <div className="container mx-auto px-4 mb-16 md:mb-20">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 0.8 }}
           viewport={{ once: true, amount: 0.5 }}
-          className="max-w-3xl mx-auto text-center mb-12 md:mb-16"
+          className="text-center max-w-3xl mx-auto"
         >
-          <div className="flex items-center justify-center gap-2 md:gap-3 mb-4 md:mb-6">
-            <ShieldCheck className="w-8 h-8 md:w-10 md:h-10 text-primary" />
-            <h2 className="text-3xl md:text-5xl lg:text-6xl font-extrabold text-primary">
-              How It Works
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <ShieldCheck className="w-10 h-10 text-[#005F4B]" />
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#005F4B]">
+              How Donations Work
             </h2>
           </div>
-
-          <p className="text-base md:text-xl text-muted-foreground leading-relaxed max-w-2xl mx-auto px-4">
-            Apnaiyat ensures your donations are secure, verified, and impactful.
-            Here's our simple, trust-building process.
+          <p className="text-lg md:text-xl text-[#3A5B52] leading-relaxed">
+            Our secure, transparent process ensures your donations reach those who need them most
           </p>
         </motion.div>
+      </div>
 
-        {/* Desktop Card Deck */}
-        <div className="hidden md:flex justify-center items-center">
-          <div className="relative h-[480px] w-full flex justify-center items-center">
-            {steps.map((step, index) => {
-              const Icon = step.icon;
-              const isHovered = hoveredIndex === index;
-
-              return (
-                <motion.div
-                  key={index}
-                  initial={{
-                    x: 0,
-                    y: index * 4,
-                    scale: 1,
-                    rotateZ: index * 0.5,
-                  }}
-                  whileInView={{
-                    x: getSpreadX(index),
-                    y: 0,
-                    scale: 1,
-                    rotateZ: 0,
-                  }}
-                  transition={{
-                    duration: 0.8,
-                    delay: index * 0.1,
-                    ease: [0.25, 0.1, 0.25, 1],
-                  }}
-                  viewport={{ once: true, amount: 0.3 }}
-                  animate={
-                    isHovered
-                      ? {
-                          y: -40,
-                          zIndex: 50,
-                        }
-                      : {
-                          y: 0,
-                          zIndex: index + 1,
-                        }
-                  }
-                  onHoverStart={() => setHoveredIndex(index)}
-                  onHoverEnd={() => setHoveredIndex(null)}
-                  className="absolute cursor-pointer"
-                  style={{
-                    zIndex: isHovered ? 50 : index + 1,
-                  }}
-                >
-                  {/* Card */}
-                  <motion.div
-                    animate={
-                      isHovered
-                        ? { width: 300, height: 440 }
-                        : { width: 260, height: 400 }
-                    }
-                    transition={{ duration: 0.3, ease: "easeOut" }}
-                    className={`relative rounded-3xl overflow-hidden shadow-2xl border-4 border-white bg-gradient-to-br ${step.gradient} ${
-                      isHovered ? "shadow-3xl" : ""
-                    }`}
+      {/* Zig-Zag Steps */}
+      <div className="container mx-auto px-4">
+        {steps.map((step, index) => {
+          const Icon = step.icon;
+          const isEven = index % 2 === 0;
+          
+          return (
+            <div key={index} className="relative mb-20 md:mb-32 last:mb-0">
+              {/* Connecting Line (except for last item) */}
+              {index < steps.length - 1 && (
+                <div className="absolute left-1/2 -translate-x-1/2 bottom-0 translate-y-16 md:translate-y-20 z-0">
+                  <svg
+                    width="200"
+                    height="120"
+                    viewBox="0 0 200 120"
+                    className="text-[#005F4B]/20"
                   >
-                    {/* Content */}
-                    <div className="relative z-10 h-full flex flex-col p-7">
-                      {/* Step Number */}
-                      <div className="w-11 h-11 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mb-4">
-                        <span className="text-white font-bold text-xl">
-                          {index + 1}
-                        </span>
-                      </div>
+                    <path
+                      d={isEven ? "M20 20 Q100 80 180 20" : "M180 20 Q100 80 20 20"}
+                      stroke="currentColor"
+                      strokeWidth="3"
+                      strokeDasharray="8,8"
+                      fill="none"
+                      className="animate-pulse"
+                    />
+                  </svg>
+                </div>
+              )}
 
-                      {/* Icon */}
-                      <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-2xl flex items-center justify-center mb-6">
-                        <Icon className="w-7 h-7 text-white" />
-                      </div>
-
-                      {/* Title */}
-                      <h3 className="text-2xl font-bold text-white mb-3">
-                        {step.title}
-                      </h3>
-
-                      {/* Description */}
-                      <p className="text-white/85 text-sm leading-relaxed flex-grow">
-                        {step.description}
-                      </p>
+              <div className={`grid lg:grid-cols-2 gap-8 lg:gap-16 items-center ${isEven ? '' : 'lg:grid-flow-col-dense'}`}>
+                {/* Text Content */}
+                <motion.div
+                  initial={{ opacity: 0, x: isEven ? -60 : 60 }}
+                  whileInView={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8, delay: 0.2 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  className={`${isEven ? 'lg:order-1' : 'lg:order-2'} space-y-6`}
+                >
+                  {/* Step Number */}
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 bg-[#005F4B] text-white rounded-full flex items-center justify-center font-bold text-xl">
+                      {index + 1}
                     </div>
-                  </motion.div>
+                    <div className="h-px bg-[#005F4B]/20 flex-1"></div>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="text-3xl md:text-4xl font-bold text-[#005F4B] leading-tight">
+                    {step.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="text-lg text-[#3A5B52] leading-relaxed">
+                    {step.description}
+                  </p>
+
+                  {/* Features List */}
+                  <div className="space-y-3">
+                    {step.features.map((feature, featureIndex) => (
+                      <motion.div
+                        key={featureIndex}
+                        initial={{ opacity: 0, x: -20 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.5, delay: 0.4 + featureIndex * 0.1 }}
+                        viewport={{ once: true, amount: 0.3 }}
+                        className="flex items-center gap-3"
+                      >
+                        <CheckCircle className="w-5 h-5 text-[#4B9C8A] flex-shrink-0" />
+                        <span className="text-[#3A5B52] font-medium">{feature}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+
+                  {/* CTA Arrow */}
+                  {index < steps.length - 1 && (
+                    <div className="flex items-center gap-2 text-[#005F4B] font-semibold pt-4">
+                      <span>Next Step</span>
+                      <ArrowRight className="w-5 h-5" />
+                    </div>
+                  )}
                 </motion.div>
-              );
-            })}
-          </div>
-        </div>
 
-        {/* Mobile Horizontal Scroll */}
-        <div className="md:hidden">
-          <div className="flex gap-4 overflow-x-auto pb-6 px-2 snap-x snap-mandatory scrollbar-hide">
-            {steps.map((step, index) => {
-              const Icon = step.icon;
-
-              return (
+                {/* Illustration/Icon Side */}
                 <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  initial={{ opacity: 0, x: isEven ? 60 : -60, scale: 0.8 }}
+                  whileInView={{ opacity: 1, x: 0, scale: 1 }}
+                  transition={{ duration: 0.8, delay: 0.1 }}
                   viewport={{ once: true, amount: 0.3 }}
-                  className="snap-center flex-shrink-0"
+                  className={`${isEven ? 'lg:order-2' : 'lg:order-1'} flex justify-center`}
                 >
-                  {/* Card */}
-                  <div
-                    className={`relative w-[260px] h-[380px] rounded-2xl overflow-hidden shadow-xl border-2 border-white bg-gradient-to-br ${step.gradient}`}
-                  >
-                    {/* Content */}
-                    <div className="relative z-10 h-full flex flex-col p-6">
-                      {/* Step Number */}
-                      <div className="w-10 h-10 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center mb-4">
-                        <span className="text-white font-bold text-lg">
-                          {index + 1}
-                        </span>
-                      </div>
-
+                  <div className="relative">
+                    {/* Background Gradient Circle */}
+                    <div 
+                      className={`w-80 h-80 md:w-96 md:h-96 rounded-full bg-gradient-to-br ${step.gradient} opacity-10 absolute inset-0 -translate-x-4 -translate-y-4`}
+                    ></div>
+                    
+                    {/* Main Icon Container */}
+                    <div 
+                      className={`relative w-72 h-72 md:w-88 md:h-88 rounded-3xl bg-gradient-to-br ${step.gradient} flex items-center justify-center shadow-2xl`}
+                    >
                       {/* Icon */}
-                      <div className="w-14 h-14 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center mb-6">
-                        <Icon className="w-7 h-7 text-white" />
-                      </div>
+                      <Icon className="w-32 h-32 md:w-40 md:h-40 text-white drop-shadow-lg" />
+                      
+                      {/* Floating Elements */}
+                      <div className="absolute -top-4 -right-4 w-8 h-8 bg-white/20 rounded-full animate-bounce delay-100"></div>
+                      <div className="absolute -bottom-6 -left-6 w-6 h-6 bg-white/30 rounded-full animate-bounce delay-300"></div>
+                      <div className="absolute top-1/4 -left-8 w-4 h-4 bg-white/25 rounded-full animate-bounce delay-500"></div>
+                    </div>
 
-                      {/* Title */}
-                      <h3 className="text-xl font-bold text-white mb-3">
-                        {step.title}
-                      </h3>
-
-                      {/* Description */}
-                      <p className="text-white/85 text-sm leading-relaxed flex-grow">
-                        {step.description}
-                      </p>
+                    {/* Step Indicator */}
+                    <div className="absolute -bottom-6 left-1/2 -translate-x-1/2 bg-white rounded-full px-4 py-2 shadow-lg border-2 border-[#005F4B]/10">
+                      <span className="text-[#005F4B] font-bold">Step {index + 1}</span>
                     </div>
                   </div>
                 </motion.div>
-              );
-            })}
-          </div>
-
-          {/* Scroll Indicator */}
-          <div className="flex justify-center gap-1.5 mt-4">
-            {steps.map((_, index) => (
-              <div
-                key={index}
-                className="w-2 h-2 rounded-full bg-primary/30"
-              />
-            ))}
-          </div>
-        </div>
+              </div>
+            </div>
+          );
+        })}
       </div>
+
+      {/* Final CTA Section */}
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8 }}
+        viewport={{ once: true, amount: 0.5 }}
+        className="container mx-auto px-4 mt-20 text-center"
+      >
+        <div className="bg-gradient-to-r from-[#005F4B] to-[#4B9C8A] rounded-3xl p-8 md:p-12 text-white">
+          <h3 className="text-2xl md:text-3xl font-bold mb-4">
+            Ready to Make a Secure Donation?
+          </h3>
+          <p className="text-lg mb-6 text-white/90">
+            Join thousands of donors who trust our transparent, secure platform
+          </p>
+          <button className="bg-white text-[#005F4B] px-8 py-3 rounded-full font-bold text-lg hover:bg-white/90 transition-colors shadow-lg">
+            Start Donating Now
+          </button>
+        </div>
+      </motion.div>
     </section>
   );
 }

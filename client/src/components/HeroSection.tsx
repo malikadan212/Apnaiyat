@@ -47,16 +47,16 @@ export function HeroSection() {
               transition={{ duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }}
               className="max-w-3xl"
             >
-              <h1 className="text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-[1.15] mb-6">
-                With your <span className="inline-block px-4 py-2 rounded-full bg-secondary text-white font-bold mx-2 transform hover:scale-105 transition-transform">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold text-white leading-[1.1] sm:leading-[1.15] mb-4 sm:mb-6">
+                With your <span className="inline-block px-2 sm:px-4 py-1 sm:py-2 rounded-full bg-secondary text-white font-bold mx-1 sm:mx-2 transform hover:scale-105 transition-transform text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl">
                   secure
                 </span> support, we ensure every donation reaches families in need—<span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-secondary/80">transparently</span> and without fraud.
               </h1>
 
-              <div className="flex flex-col sm:flex-row gap-4">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <Button 
                   size="lg" 
-                  className="shadow-xl shadow-secondary/40 bg-secondary hover:bg-secondary/90 text-white font-semibold"
+                  className="shadow-xl shadow-secondary/40 bg-secondary hover:bg-secondary/90 text-white font-semibold w-full sm:w-auto"
                 >
                   Start Donating
                 </Button>
@@ -64,7 +64,7 @@ export function HeroSection() {
                   variant="outline" 
                   size="lg"
                   onClick={() => window.location.href = "/auth"}
-                  className="bg-white/10 border-white/20 text-white hover:bg-white/20 font-semibold backdrop-blur-sm"
+                  className="bg-white/10 border-white/20 text-white hover:bg-white/20 font-semibold backdrop-blur-sm w-full sm:w-auto"
                 >
                   Sign Up Now
                 </Button>
@@ -72,26 +72,26 @@ export function HeroSection() {
             </motion.div>
 
             {/* Right Column: Floating Campaign Card */}
-            <div className="relative h-full flex items-end lg:items-center justify-center lg:justify-end pb-12 lg:pb-0">
+            <div className="relative h-full flex items-end lg:items-center justify-center lg:justify-end pb-8 sm:pb-12 lg:pb-0 mt-8 lg:mt-0">
               <motion.div
                 initial={{ opacity: 0, x: 60, y: 40 }}
                 animate={{ opacity: 1, x: 0, y: 0 }}
                 transition={{ delay: 0.4, duration: 1.2, ease: [0.25, 0.1, 0.25, 1] }}
-                className="w-full max-w-md"
+                className="w-full max-w-sm sm:max-w-md mx-auto lg:mx-0"
               >
                 {/* Campaign Card */}
-                <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
+                <div className="bg-white rounded-2xl sm:rounded-3xl shadow-2xl overflow-hidden">
                   {isLoading ? (
-                    <div className="p-7 animate-pulse space-y-4">
-                      <div className="h-32 bg-gray-200 rounded-xl"></div>
-                      <div className="h-5 bg-gray-200 rounded w-2/3"></div>
+                    <div className="p-5 sm:p-7 animate-pulse space-y-4">
+                      <div className="h-28 sm:h-32 bg-gray-200 rounded-xl"></div>
+                      <div className="h-4 sm:h-5 bg-gray-200 rounded w-2/3"></div>
                       <div className="h-3 bg-gray-200 rounded w-full"></div>
-                      <div className="h-12 bg-gray-200 rounded w-full"></div>
+                      <div className="h-10 sm:h-12 bg-gray-200 rounded w-full"></div>
                     </div>
                   ) : (
                     <>
                       {/* Campaign Image */}
-                      <div className="relative h-40 overflow-hidden">
+                      <div className="relative h-32 sm:h-40 overflow-hidden">
                         <img 
                           src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600&q=80"
                           alt="Flood relief efforts"
@@ -101,35 +101,35 @@ export function HeroSection() {
                         <div className="absolute bottom-3 left-4 right-4 flex justify-between items-end">
                           <div className="flex items-center gap-2">
                             <span className="bg-red-500 text-white text-xs font-bold px-2 py-1 rounded-full flex items-center gap-1">
-                              <Clock className="w-3 h-3" /> {displayCampaign.daysLeft} days left
+                              <Clock className="w-3 h-3" /> {(displayCampaign as any).daysLeft || 12} days left
                             </span>
                           </div>
                           <div className="flex items-center gap-1 text-white/90 text-xs">
-                            <MapPin className="w-3 h-3" /> {displayCampaign.location}
+                            <MapPin className="w-3 h-3" /> {(displayCampaign as any).location || "Pakistan"}
                           </div>
                         </div>
                       </div>
 
                       {/* Card Content */}
-                      <div className="p-5 space-y-4">
+                      <div className="p-4 sm:p-5 space-y-3 sm:space-y-4">
                         {/* Title & Verified Badge */}
                         <div>
                           <div className="flex items-center gap-2 mb-1">
-                            <h3 className="text-lg font-bold text-primary leading-tight">
+                            <h3 className="text-base sm:text-lg font-bold text-primary leading-tight line-clamp-2">
                               {displayCampaign.title}
                             </h3>
                             <Shield className="w-4 h-4 text-secondary flex-shrink-0" />
                           </div>
                           <p className="text-xs text-muted-foreground">
-                            by <span className="font-semibold text-primary">{displayCampaign.organizer}</span> • Verified NGO
+                            by <span className="font-semibold text-primary">{(displayCampaign as any).organizer || "Verified NGO"}</span> • Verified NGO
                           </p>
                         </div>
 
                         {/* Progress Section */}
                         <div>
-                          <div className="flex justify-between items-baseline mb-2">
+                          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-baseline mb-2 gap-1">
                             <div>
-                              <span className="text-2xl font-bold text-primary">
+                              <span className="text-xl sm:text-2xl font-bold text-primary">
                                 PKR {Number(displayCampaign.raisedAmount).toLocaleString()}
                               </span>
                               <span className="text-sm text-muted-foreground ml-1">
@@ -161,17 +161,17 @@ export function HeroSection() {
                         </div>
 
                         {/* Action Buttons */}
-                        <div className="grid grid-cols-2 gap-3 pt-1">
+                        <div className="grid grid-cols-2 gap-2 sm:gap-3 pt-1">
                           <Button 
-                            className="w-full text-sm font-bold bg-secondary hover:bg-secondary/90 text-white" 
-                            size="md"
+                            className="w-full text-xs sm:text-sm font-bold bg-secondary hover:bg-secondary/90 text-white" 
+                            size="sm"
                           >
                             Donate Now
                           </Button>
                           <Button 
                             variant="outline" 
-                            className="w-full text-sm font-semibold text-primary border-primary/30 hover:bg-primary/5" 
-                            size="md"
+                            className="w-full text-xs sm:text-sm font-semibold text-primary border-primary/30 hover:bg-primary/5" 
+                            size="sm"
                           >
                             View Details
                           </Button>

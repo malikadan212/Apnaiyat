@@ -3,13 +3,36 @@ import { MessageSquare, Menu } from "lucide-react";
 import { Button } from "./Button";
 import { useAuth } from "@/hooks/use-auth";
 import { useState } from "react";
+import { motion, useScroll, useMotionValueEvent } from "framer-motion";
 
 export function Navigation() {
   const { user } = useAuth();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [hidden, setHidden] = useState(false);
+  const { scrollY } = useScroll();
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    const previous = scrollY.getPrevious() ?? 0;
+    // Hide when scrolling down, show when scrolling up
+    if (latest > previous && latest > 100) {
+      setHidden(true);
+      setMobileMenuOpen(false); // Close mobile menu when hiding
+    } else {
+      setHidden(false);
+    }
+  });
 
   return (
-    <nav className="fixed top-4 left-4 right-4 z-50 md:left-1/2 md:transform md:-translate-x-1/2 md:max-w-5xl md:w-11/12">
+    <motion.nav
+      variants={{
+        visible: { y: 0, opacity: 1 },
+        hidden: { y: -100, opacity: 0 },
+      }}
+      animate={hidden ? "hidden" : "visible"}
+      transition={{ duration: 0.3, ease: "easeInOut" }}
+      className="fixed top-4 left-0 right-0 z-50 px-4 md:px-0"
+    >
+      <div className="mx-auto max-w-5xl w-full md:w-11/12">
       {/* Floating Navbar Container */}
       <div className="bg-gradient-to-r from-white/10 via-background/10 to-white/10 backdrop-blur-2xl border border-white/20 rounded-2xl shadow-2xl">
         <div className="container mx-auto px-6 h-16 flex items-center justify-between">
@@ -30,13 +53,20 @@ export function Navigation() {
 
           {/* Desktop Links */}
           <div className="hidden lg:flex items-center gap-1">
-            {["Home", "For Donors", "For NGOs/Charities", "How It Works", "About Us"].map((item) => (
+            {[
+              { label: "Home", href: "/" },
+              { label: "For Donors", href: "/for-donors" },
+              { label: "For NGOs", href: "/for-ngos/charities", fullLabel: "For NGOs/Charities" },
+              { label: "How It Works", href: "/how-it-works" },
+              { label: "About Us", href: "/about-us" }
+            ].map((item) => (
               <Link 
-                key={item} 
-                href={item === "Home" ? "/" : `/${item.toLowerCase().replace(/\s+/g, '-')}`} 
-                className="text-xs font-semibold text-white/80 hover:text-accent-foreground transition-colors px-3 py-2 rounded-lg hover:bg-background/20 relative group"
+                key={item.label} 
+                href={item.href} 
+                className="text-xs xl:text-sm font-semibold text-white/80 hover:text-accent-foreground transition-colors px-2 xl:px-3 py-2 rounded-lg hover:bg-background/20 relative group"
+                title={item.fullLabel || item.label}
               >
-                {item}
+                {item.label}
                 <span className="absolute -bottom-0.5 left-0 w-0 h-0.5 bg-gradient-to-r from-background to-background/50 transition-all group-hover:w-full" />
               </Link>
             ))}
@@ -82,21 +112,28 @@ export function Navigation() {
         {/* Mobile Menu */}
         {mobileMenuOpen && (
           <div className="lg:hidden border-t border-white/20 backdrop-blur-2xl bg-white/5">
-            <div className="px-6 py-4 space-y-2">
-              {["Home", "For Donors", "For NGOs/Charities", "How It Works", "About Us"].map((item) => (
+            <div className="px-4 sm:px-6 py-4 space-y-2">
+              {[
+                { label: "Home", href: "/" },
+                { label: "For Donors", href: "/for-donors" },
+                { label: "For NGOs/Charities", href: "/for-ngos/charities" },
+                { label: "How It Works", href: "/how-it-works" },
+                { label: "About Us", href: "/about-us" }
+              ].map((item) => (
                 <Link 
-                  key={item} 
-                  href={item === "Home" ? "/" : `/${item.toLowerCase().replace(/\s+/g, '-')}`} 
+                  key={item.label} 
+                  href={item.href} 
                   className="block text-sm font-semibold text-white/80 hover:text-accent-foreground px-3 py-2 rounded-lg hover:bg-background/20 transition-colors"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  {item}
+                  {item.label}
                 </Link>
               ))}
             </div>
           </div>
         )}
       </div>
-    </nav>
+      </div>
+    </motion.nav>
   );
 }
