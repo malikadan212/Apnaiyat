@@ -136,10 +136,10 @@ export function FooterSection() {
                 ease: [0.25, 0.1, 0.25, 1],
                 delay: 0.3,
               }}
-              className="w-full"
+              className="w-full flex justify-center"
             >
               <div
-                className="font-extrabold text-background leading-[0.85] tracking-tighter pl-2 md:pl-6 whitespace-nowrap"
+                className="font-extrabold text-background leading-[0.85] tracking-tighter text-center"
                 style={{ fontSize: "clamp(5rem, 18vw, 35rem)" }}
               >
                 APNAIYAT
