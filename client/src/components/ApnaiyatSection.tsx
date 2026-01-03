@@ -142,7 +142,7 @@ export function ApnaiyatSection() {
         {/* Mobile Images - Show below text on small screens */}
         <div className="md:hidden mt-12">
           <div className="flex justify-center gap-4 flex-wrap">
-            {[...leftImages, ...rightImages].map((src, index) => (
+            {[...leftImages, ...rightImages].slice(0, 3).map((src, index) => (
               <motion.div
                 key={`mobile-${index}`}
                 initial={{ opacity: 0, scale: 0.8 }}

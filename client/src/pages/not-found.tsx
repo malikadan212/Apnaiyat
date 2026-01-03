@@ -9,7 +9,7 @@ export default function NotFound() {
           <AlertCircle className="w-8 h-8 text-destructive" />
         </div>
         
-        <h1 className="text-2xl font-bold text-primary mb-2">Page Not Found</h1>
+        <h2 className="text-2xl font-bold text-primary mb-2">Page Not Found</h2>
         <p className="text-muted-foreground mb-8">
           The page you are looking for doesn't exist or has been moved.
         </p>

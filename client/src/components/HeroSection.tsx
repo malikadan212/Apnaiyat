@@ -23,7 +23,7 @@ export function HeroSection() {
   const displayCampaign = campaign || staticCampaign;
 
   return (
-    <div className="relative w-full min-h-screen flex items-center overflow-hidden">
+    <div className="relative w-full min-h-screen flex items-center overflow-hidden pt-20 md:pt-20">
       {/* Full-screen Background Image */}
       <div className="absolute inset-0 w-full h-full overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-primary via-primary/80 to-secondary" />
@@ -37,7 +37,7 @@ export function HeroSection() {
       </div>
 
       {/* Content Container */}
-      <div className="relative z-10 w-full h-full flex items-center">
+      <div className="relative z-10 w-full h-full flex items-center py-8 md:py-8">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             {/* Left Column: Hero Text Content */}
@@ -48,10 +48,13 @@ export function HeroSection() {
               className="max-w-3xl"
             >
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-extrabold text-white leading-[1.1] sm:leading-[1.15] mb-4 sm:mb-6">
+                Transparent Charitable Giving Platform in <span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-secondary/80">Pakistan</span>
+              </h1>
+              <p className="text-lg sm:text-xl md:text-2xl text-white/90 mb-6 sm:mb-8 leading-relaxed">
                 With your <span className="inline-block px-2 sm:px-4 py-1 sm:py-2 rounded-full bg-secondary text-white font-bold mx-1 sm:mx-2 transform hover:scale-105 transition-transform text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl">
                   secure
-                </span> support, we ensure every donation reaches families in need—<span className="text-transparent bg-clip-text bg-gradient-to-r from-secondary to-secondary/80">transparently</span> and without fraud.
-              </h1>
+                </span> support, we ensure every donation reaches families in need—transparently and without fraud.
+              </p>
 
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4">
                 <Button 

@@ -3,10 +3,6 @@ import {
   ShieldCheck,
   Lock,
   Eye,
-  Handshake,
-  UserCheck,
-  Scale,
-  Activity,
   ArrowRight,
   CheckCircle,
 } from "lucide-react";
@@ -51,7 +47,6 @@ export function HowItWorksSection() {
           className="text-center max-w-3xl mx-auto"
         >
           <div className="flex items-center justify-center gap-3 mb-6">
-            <ShieldCheck className="w-10 h-10 text-[#005F4B]" />
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-[#005F4B]">
               How Donations Work
             </h2>
@@ -63,7 +58,7 @@ export function HowItWorksSection() {
       </div>
 
       {/* Zig-Zag Steps */}
-      <div className="container mx-auto px-4">
+      <div className="container mx-auto px-6 md:px-8 lg:px-12 max-w-7xl">
         {steps.map((step, index) => {
           const Icon = step.icon;
           const isEven = index % 2 === 0;
@@ -91,14 +86,14 @@ export function HowItWorksSection() {
                 </div>
               )}
 
-              <div className={`grid lg:grid-cols-2 gap-8 lg:gap-16 items-center ${isEven ? '' : 'lg:grid-flow-col-dense'}`}>
+              <div className={`grid lg:grid-cols-2 gap-12 lg:gap-20 xl:gap-24 items-center max-w-6xl mx-auto ${isEven ? '' : 'lg:grid-flow-col-dense'}`}>
                 {/* Text Content */}
                 <motion.div
                   initial={{ opacity: 0, x: isEven ? -60 : 60 }}
                   whileInView={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.8, delay: 0.2 }}
                   viewport={{ once: true, amount: 0.3 }}
-                  className={`${isEven ? 'lg:order-1' : 'lg:order-2'} space-y-6`}
+                  className={`${isEven ? 'lg:order-1' : 'lg:order-2'} space-y-6 px-4 lg:px-8`}
                 >
                   {/* Step Number */}
                   <div className="flex items-center gap-4">
@@ -150,20 +145,20 @@ export function HowItWorksSection() {
                   whileInView={{ opacity: 1, x: 0, scale: 1 }}
                   transition={{ duration: 0.8, delay: 0.1 }}
                   viewport={{ once: true, amount: 0.3 }}
-                  className={`${isEven ? 'lg:order-2' : 'lg:order-1'} flex justify-center`}
+                  className={`${isEven ? 'lg:order-2' : 'lg:order-1'} flex justify-center px-4 lg:px-8`}
                 >
-                  <div className="relative">
+                  <div className="relative flex items-center justify-center">
                     {/* Background Gradient Circle */}
                     <div 
-                      className={`w-80 h-80 md:w-96 md:h-96 rounded-full bg-gradient-to-br ${step.gradient} opacity-10 absolute inset-0 -translate-x-4 -translate-y-4`}
+                      className={`w-48 h-48 sm:w-56 sm:h-56 md:w-64 md:h-64 lg:w-72 lg:h-72 rounded-full bg-gradient-to-br ${step.gradient} opacity-10 absolute inset-0 -translate-x-4 -translate-y-4`}
                     ></div>
                     
                     {/* Main Icon Container */}
                     <div 
-                      className={`relative w-72 h-72 md:w-88 md:h-88 rounded-3xl bg-gradient-to-br ${step.gradient} flex items-center justify-center shadow-2xl`}
+                      className={`relative w-40 h-40 sm:w-48 sm:h-48 md:w-56 md:h-56 lg:w-64 lg:h-64 rounded-3xl bg-gradient-to-br ${step.gradient} flex items-center justify-center shadow-2xl`}
                     >
                       {/* Icon */}
-                      <Icon className="w-32 h-32 md:w-40 md:h-40 text-white drop-shadow-lg" />
+                      <Icon className="w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 lg:w-24 lg:h-24 text-white drop-shadow-lg" />
                       
                       {/* Floating Elements */}
                       <div className="absolute -top-4 -right-4 w-8 h-8 bg-white/20 rounded-full animate-bounce delay-100"></div>

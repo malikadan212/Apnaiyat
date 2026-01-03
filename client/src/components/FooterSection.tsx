@@ -138,12 +138,12 @@ export function FooterSection() {
               }}
               className="w-full"
             >
-              <h1
+              <div
                 className="font-extrabold text-background leading-[0.85] tracking-tighter pl-2 md:pl-6 whitespace-nowrap"
                 style={{ fontSize: "clamp(5rem, 18vw, 35rem)" }}
               >
                 APNAIYAT
-              </h1>
+              </div>
             </motion.div>
           </div>
         </div>

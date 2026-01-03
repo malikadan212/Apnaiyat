@@ -73,9 +73,9 @@ export default function Auth() {
             />
             <span className="font-sans font-extrabold text-2xl text-primary">APNAIYAT</span>
           </Link>
-          <h1 className="text-3xl font-bold text-primary mb-2">
+          <h2 className="text-3xl font-bold text-primary mb-2">
             {isLogin ? "Welcome Back" : "Join Apnaiyat"}
-          </h1>
+          </h2>
           <p className="text-muted-foreground">
             {isLogin ? "Sign in to your account" : "Create your account to start helping"}
           </p>
