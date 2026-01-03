@@ -1,6 +1,7 @@
 import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { ArrowUp } from "lucide-react";
+import { OptimizedImage } from "./OptimizedImage";
 
 export function FooterSection() {
   const sectionRef = useRef(null);
@@ -17,10 +18,14 @@ export function FooterSection() {
         <div className="relative min-h-[400px] flex items-center justify-center overflow-hidden rounded-[2rem] md:rounded-[3rem]">
           {/* Background Image */}
           <div className="absolute inset-0">
-            <img
+            <OptimizedImage
               src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=1920&q=80"
               alt="Happy children smiling"
               className="w-full h-full object-cover"
+              width={1920}
+              height={400}
+              sizes="100vw"
+              priority={false}
             />
             <div className="absolute inset-0 bg-black/40" />
           </div>

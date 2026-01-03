@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Users, Clock, MapPin, Shield } from "lucide-react";
 import { Button } from "./Button";
+import { OptimizedImage } from "./OptimizedImage";
 import { useHeroCampaign } from "@/hooks/use-campaigns";
 import heroBackground from "@assets/generated_images/pakistani_volunteers_helping_families_with_compassion_and_dignity.png";
 
@@ -95,10 +96,13 @@ export function HeroSection() {
                     <>
                       {/* Campaign Image */}
                       <div className="relative h-32 sm:h-40 overflow-hidden">
-                        <img 
+                        <OptimizedImage
                           src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=600&q=80"
                           alt="Flood relief efforts"
                           className="w-full h-full object-cover"
+                          width={600}
+                          height={320}
+                          sizes="(max-width: 640px) 100vw, (max-width: 768px) 50vw, 33vw"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                         <div className="absolute bottom-3 left-4 right-4 flex justify-between items-end">
